@@ -51,6 +51,8 @@ async def update_movie(movie_id: uuid.UUID, updated_movie: UpdateMovieRequest) -
             movie.name = updated_movie.name
             movie.year = updated_movie.year
             return UpdateMovieResponse(success=True)
+    raise HTTPException(status_code=404, detail="Movie ID does not exist.")
+
 
 @app.delete("/movies/{movie_id}")
 async def delete_movie(movie_id: uuid.UUID) -> DeleteMovieResponse:
@@ -58,4 +60,5 @@ async def delete_movie(movie_id: uuid.UUID) -> DeleteMovieResponse:
         if movie.movie_id == movie_id:
             movies.pop(i)
             return DeleteMovieResponse(success=True)
+    raise HTTPException(status_code=404, detail="Movie does not exist.")
         
